@@ -1,0 +1,15 @@
+import { z } from 'zod';
+
+export const blogSchema = {
+  create: z.object({
+    title: z.string().min(1, 'Title is required').max(100),
+    content: z.string().min(1, 'Content is required'),
+    published: z.boolean().default(true),
+  }),
+
+  update: z.object({
+    title: z.string().min(1, 'Title is required').max(100).optional(),
+    content: z.string().min(1, 'Content is required').optional(),
+    published: z.boolean().optional(),
+  }),
+}; 
