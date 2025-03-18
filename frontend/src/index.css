@@ -153,6 +153,15 @@
 
 /* Keep your existing theme inline variables */
 @theme inline {
+  --color-seasalt: #f8f9fa;
+  --color-flashwhite: #e9ecef;
+  --color-platinum: #dee2e6;
+  --color-french: #adb5bd;
+  --color-slategray: #6c757d;
+  --color-space: #495057;
+  --color-onyx: #343a40;
+  --color-eblack: #212529;
+  --color-night: #0d0c0c;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

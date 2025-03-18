@@ -9,6 +9,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { ShinyButton } from '@/components/magicui/shiny-button';
 import { ShineBorder } from "@/components/magicui/shine-border";
 import { Marquee } from "@/components/magicui/marquee";
+import { AuthLogo } from '@/components/ui/logo';
 
 const testimonials = [
   { 
@@ -64,12 +65,13 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen grid grid-cols-2">
       {/* Left side - Registration Form */}
-      <div className="flex items-center justify-center p-8">
+      <div className="flex flex-col items-center justify-center p-8 bg-eblack">
+        <AuthLogo />
         <div className="w-full max-w-md relative overflow-hidden">
           <ShineBorder className="absolute inset-0" />
-          <Card>
+          <Card className='bg-platinum'>
             <CardHeader>
-              <CardTitle className="text-3xl flex justify-center">Register</CardTitle>
+              <CardTitle className="text-3xl flex justify-center  dark:text-eblack">Register</CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -107,9 +109,9 @@ export default function RegisterPage() {
                 </ShinyButton>
               </form>
               <div className="text-center mt-4">
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-space">
                   Already have an account?{' '}
-                  <a href="/login" className="text-primary hover:underline">
+                  <a href="/login" className="text-eblack hover:underline">
                     Signin
                   </a>
                 </p>
@@ -120,7 +122,7 @@ export default function RegisterPage() {
       </div>
 
       {/* Right side - Testimonials */}
-      <div className="bg-slate-50 flex flex-col justify-center overflow-hidden">
+      <div className=" flex flex-col justify-center overflow-hidden bg-eblack">
         <div className="py-24 space-y-24">
           <Marquee className="[--gap:theme(spacing.6)]" pauseOnHover>
             {testimonials.map((testimonial) => (

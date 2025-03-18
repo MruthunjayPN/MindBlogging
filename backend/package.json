@@ -27,5 +27,9 @@
     "prisma": "^6.5.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.2"
+  },
+  "overrides": {
+    "glob": "^9.0.0",
+    "rimraf": "^4.0.0"
   }
 }
