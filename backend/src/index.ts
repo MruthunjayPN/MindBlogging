@@ -14,7 +14,10 @@ const app = express();
 
 // CORS configuration
 app.use(cors({
-  origin: 'http://localhost:5173', // Vite's default port
+  origin: [
+    'http://localhost:5173',
+    'https://your-frontend-domain.vercel.app'
+  ],
   credentials: true,
 }));
 app.use(express.json());
