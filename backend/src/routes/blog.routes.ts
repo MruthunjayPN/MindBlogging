@@ -78,9 +78,9 @@ router.get('/posts/:id', async (req, res) => {
       return res.status(404).json({ message: 'Post not found' });
     }
     
-    res.json(post);
+    return res.json(post);
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching post' });
+    return res.status(500).json({ message: 'Error fetching post' });
   }
 });
 
@@ -113,9 +113,9 @@ router.put('/posts/:id', authenticate, async (req, res) => {
       }
     });
 
-    res.json(updatedPost);
+    return res.json(updatedPost);
   } catch (error) {
-    handleZodError(error, res);
+    return handleZodError(error, res);
   }
 });
 
@@ -138,9 +138,9 @@ router.delete('/posts/:id', authenticate, async (req, res) => {
       where: { id: req.params.id }
     });
 
-    res.json({ message: 'Post deleted successfully' });
+    return res.json({ message: 'Post deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Error deleting post' });
+    return res.status(500).json({ message: 'Error deleting post' });
   }
 });
 

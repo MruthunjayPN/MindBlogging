@@ -1,14 +1,24 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { prisma } from '../lib/prisma';
+import type { User, Role } from '@prisma/client';
 
-export interface AuthRequest extends Request {
-  user?: {
-    id: string;
-    email: string;
-    name: string;
-    role: string;
-  };
+// Define the decoded JWT token type
+interface JwtPayload {
+  userId: string;
+  role: Role;
+}
+
+// Define custom user type for the request
+interface RequestUser {
+  id: string;
+  email: string;
+  name: string;
+  role: Role;
+}
+
+export interface AuthRequest extends Omit<Request, 'user'> {
+  user?: RequestUser;
 }
 
 export const authenticate = async (req: AuthRequest, res: Response, next: NextFunction) => {
@@ -19,9 +29,9 @@ export const authenticate = async (req: AuthRequest, res: Response, next: NextFu
       return res.status(401).json({ message: 'Authentication required' });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret') as JwtPayload;
     const user = await prisma.user.findUnique({
-      where: { id: (decoded as any).userId },
+      where: { id: decoded.userId },
       select: {
         id: true,
         email: true,
@@ -35,15 +45,16 @@ export const authenticate = async (req: AuthRequest, res: Response, next: NextFu
     }
 
     req.user = user;
-    next();
+    return next();
   } catch (error) {
     return res.status(401).json({ message: 'Invalid token' });
   }
 };
 
-export const isAdmin = (req: AuthRequest, res: Response, next: NextFunction) => {
+export const isAdmin = (req: AuthRequest, res: Response, next: NextFunction): void => {
   if (req.user?.role !== 'ADMIN') {
-    return res.status(403).json({ message: 'Admin access required' });
+    res.status(403).json({ message: 'Admin access required' });
+    return;
   }
   next();
 }; 

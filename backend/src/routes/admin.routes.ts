@@ -45,7 +45,7 @@ router.delete('/users/:id', authenticate, isAdmin, async (req, res) => {
     }
 
     // Don't allow admin to delete themselves
-    if (id === user?.id) {
+    if (id === req.user?.id) { // Assuming req.user contains the authenticated user's details
       return res.status(400).json({ message: 'Cannot delete your own admin account' });
     }
 
@@ -59,9 +59,9 @@ router.delete('/users/:id', authenticate, isAdmin, async (req, res) => {
       where: { id }
     });
 
-    res.json({ message: 'User deleted successfully' });
+    return res.json({ message: 'User deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Error deleting user' });
+    return res.status(500).json({ message: 'Error deleting user' });
   }
 });
 

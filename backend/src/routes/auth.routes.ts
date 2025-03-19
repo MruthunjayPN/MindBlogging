@@ -7,7 +7,7 @@ import { authenticate, AuthRequest } from '../middleware/auth.middleware';
 
 const router = express.Router();
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', async (req, res: Response) => {
   try {
     const validatedData = userAuthSchema.signup.parse(req.body);
     const { email, password, name } = validatedData;
@@ -39,12 +39,12 @@ router.post('/signup', async (req, res) => {
       { expiresIn: '1d' }
     );
 
-    res.json({ token, user });
+    return res.json({ token, user });
   } catch (error) {
     if (error.errors) {
       return res.status(400).json({ errors: error.errors });
     }
-    res.status(400).json({ message: error.message || 'Invalid input' });
+    return res.status(400).json({ message: error.message || 'Invalid input' });
   }
 });
 
@@ -81,12 +81,12 @@ router.post('/signin', async (req, res) => {
       { expiresIn: '1d' }
     );
 
-    res.json({ token, user: userWithoutPassword });
+    return res.json({ token, user: userWithoutPassword });
   } catch (error) {
     if (error.errors) {
       return res.status(400).json({ errors: error.errors });
     }
-    res.status(400).json({ message: error.message || 'Invalid input' });
+    return res.status(400).json({ message: error.message || 'Invalid input' });
   }
 });
 
