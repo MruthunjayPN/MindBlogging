@@ -75,7 +75,10 @@ export const Menu = ({
         flex items-center justify-between"
     >
       <div className="flex-none">
-        <div className="flex items-center gap-4">
+        <Link 
+          to="/" 
+          className="flex items-center gap-4 hover:opacity-80 transition-opacity"
+        >
           <div className="relative w-12 h-12">
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white via-zinc-300 to-zinc-600 animate-pulse" />
             <div className="absolute inset-1 rounded-full bg-black" />
@@ -89,10 +92,10 @@ export const Menu = ({
               Blogging
             </span>
           </h1>
-        </div>
+        </Link>
       </div>
       <div className="flex items-center gap-8">
-        <div className="flex items-center gap-6"> {/* Increased gap between menu items */}
+        <div className="flex items-center gap-6">
           {(!isAuthPage || user) && children}
         </div>
         <ThemeSwitcher />

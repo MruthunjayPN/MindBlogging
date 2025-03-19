@@ -30,22 +30,25 @@ interface ShinyButtonProps
     MotionProps {
   children: React.ReactNode;
   className?: string;
+  disabled?: boolean;
 }
 
 export const ShinyButton = React.forwardRef<
   HTMLButtonElement,
   ShinyButtonProps
->(({ children, className, ...props }, ref) => {
+>(({ children, className, disabled, ...props }, ref) => {
   return (
     <motion.button
       ref={ref}
       className={cn(
-        "relative rounded-lg px-6 py-2 font-medium backdrop-blur-xl transition-shadow duration-300 ease-in-out hover:shadow bg-anti-flash-white dark:bg-night text-eerie-black dark:text-seasalt w-full",
+        "relative rounded-lg px-6 py-2 font-medium backdrop-blur-xl transition-shadow duration-300 ease-in-out hover:shadow bg-night text-seasalt dark:bg-seasalt dark:text-night w-full",
         "dark:hover:shadow-[0_0_20px_rgba(248,249,250,0.1)] hover:shadow-[0_0_20px_rgba(33,37,41,0.1)]",
+        disabled && "opacity-50 cursor-not-allowed pointer-events-none",
         className
       )}
       {...animationProps}
       {...props}
+      disabled={disabled}
     >
       {children}
     </motion.button>
