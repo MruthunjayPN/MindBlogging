@@ -9,7 +9,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { ShinyButton } from '@/components/magicui/shiny-button';
 import { ShineBorder } from '@/components/magicui/shine-border';
 import { Marquee } from "@/components/magicui/marquee";
-import { AuthLogo } from '@/components/ui/logo';
+import { Logo } from '@/components/ui/logo';
 
 const testimonials = [
   { 
@@ -66,9 +66,9 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen grid grid-cols-2">
       {/* Left side - Login Form */}
-      <div className="flex flex-col items-center justify-center p-8 bg-eblack">
-        <AuthLogo />
-        <div className="w-full max-w-md relative overflow-hidden">
+      <div className="flex flex-col items-center justify-center p-8 bg-night">
+        <Logo variant="auth" />
+        <div className="w-full mt-6 max-w-md relative overflow-hidden">
           <ShineBorder className="absolute inset-0" />
           <Card className='bg-platinum'>
             <CardHeader>
@@ -114,7 +114,7 @@ export default function LoginPage() {
       </div>
 
       {/* Right side - Testimonials */}
-      <div className="bg-eblack flex flex-col justify-center overflow-hidden">
+      <div className="bg-zinc-900 flex flex-col justify-center overflow-hidden">
         <div className="py-24 space-y-24">
           <Marquee className="[--gap:theme(spacing.6)]" pauseOnHover>
             {testimonials.map((testimonial) => (

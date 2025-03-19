@@ -14,10 +14,10 @@ export default function Root() {
   const hideNavbar = !user && ['/', '/login', '/register'].includes(currentPath);
 
   return (
-    <div className="min-h-screen bg-platinum dark:bg-eerie-black transition-colors duration-200">
+    <div className="min-h-screen bg-flashwhite dark:bg-night transition-colors duration-200">
       {!hideNavbar && (
-        <header className="border-b border-french-gray-200 dark:border-onyx bg-french-gray dark:bg-french-gray">
-          <div className="container mx-auto px-4 py-4">
+        <header className="fixed top-0 left-0 right-0 px-4 py-4 z-50">
+          <div className="container mx-auto">
             <Menu setActive={setActive}>
               {user ? (
                 <>
@@ -44,7 +44,10 @@ export default function Root() {
                       {user.role === 'ADMIN' && (
                         <HoveredLink to="/admin">Admin Dashboard</HoveredLink>
                       )}
-                      <ShinyButton onClick={logout}>
+                      <ShinyButton 
+                        onClick={logout}
+                        className="w-full bg-eblack text-seasalt hover:bg-eblack/90 dark:bg-platinum dark:text-night dark:hover:bg-platinum/90"
+                      >
                         Logout
                       </ShinyButton>
                     </div>
@@ -56,7 +59,7 @@ export default function Root() {
         </header>
       )}
 
-      <main className={`${hideNavbar ? '' : 'container mx-auto px-4 py-8'} text-eerie-black dark:text-seasalt`}>
+      <main className={`${hideNavbar ? '' : 'pt-28 container mx-auto px-4 py-8'} text-eblack dark:text-seasalt`}>
         <Outlet />
       </main>
     </div>

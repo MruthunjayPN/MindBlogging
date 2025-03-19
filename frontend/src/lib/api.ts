@@ -4,6 +4,9 @@ import type { AuthResponse, User, Post, ProfileResponse } from '@/types/api';
 const api = axios.create({
   baseURL: 'http://localhost:3000/api',
   withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  }
 });
 
 // Request interceptor for adding auth token

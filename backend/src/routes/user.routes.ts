@@ -8,9 +8,13 @@ const prisma = new PrismaClient();
 
 // Get user profile with their posts
 router.get('/profilePosts', authenticate, async (req, res) => {
+  if (!req.user?.id) {
+    return res.status(401).json({ message: 'Authentication required' });
+  }
+
   try {
     const userWithPosts = await prisma.user.findUnique({
-      where: { id: req.user?.id ?? '' },
+      where: { id: req.user.id },
       select: {
         id: true,
         email: true,

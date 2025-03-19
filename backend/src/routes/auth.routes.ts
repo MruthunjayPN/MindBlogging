@@ -23,6 +23,13 @@ router.post('/signup', async (req, res) => {
         email,
         password: hashedPassword,
         name
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        createdAt: true
       }
     });
 
@@ -32,12 +39,12 @@ router.post('/signup', async (req, res) => {
       { expiresIn: '1d' }
     );
 
-    res.json({ token });
+    res.json({ token, user });
   } catch (error) {
     if (error.errors) {
       return res.status(400).json({ errors: error.errors });
     }
-    res.status(400).json({ message: 'Invalid input' });
+    res.status(400).json({ message: error.message || 'Invalid input' });
   }
 });
 
@@ -46,7 +53,18 @@ router.post('/signin', async (req, res) => {
     const validatedData = userAuthSchema.signin.parse(req.body);
     const { email, password } = validatedData;
 
-    const user = await prisma.user.findUnique({ where: { email } });
+    const user = await prisma.user.findUnique({ 
+      where: { email },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        password: true,
+        createdAt: true
+      }
+    });
+
     if (!user) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
@@ -56,18 +74,19 @@ router.post('/signin', async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
+    const { password: _, ...userWithoutPassword } = user;
     const token = jwt.sign(
       { userId: user.id, role: user.role },
       process.env.JWT_SECRET || 'secret',
       { expiresIn: '1d' }
     );
 
-    res.json({ token });
+    res.json({ token, user: userWithoutPassword });
   } catch (error) {
     if (error.errors) {
       return res.status(400).json({ errors: error.errors });
     }
-    res.status(400).json({ message: 'Invalid input' });
+    res.status(400).json({ message: error.message || 'Invalid input' });
   }
 });
 

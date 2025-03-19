@@ -58,17 +58,17 @@ export default function HomePage() {
   return (
     <div className="relative">
       {/* Main content */}
-      <div className={`container mx-auto px-4 py-8 transition-all duration-300 ${selectedPost ? 'blur-sm' : ''}`}>
+      <div className={`container mx-auto bg-flashwhite dark:bg-night px-4 py-8 transition-all duration-300 ${selectedPost ? 'blur-sm' : ''}`}>
         <h1 className="text-4xl font-bold mb-8 text-center">Latest Posts</h1>
         <HoverEffect items={hoverItems} className="max-w-3xl mx-auto" />
       </div>
 
       {/* Selected post overlay */}
       {selectedPost && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
+        <div className="fixed inset-0 bg-eblack/80 dark:bg-night/60 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
           <div 
             ref={blogRef}
-            className="bg-slate-50 dark:bg-slate-900 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-border/50 scrollbar-thin scrollbar-thumb-slate-400 dark:scrollbar-thumb-slate-700 scrollbar-track-transparent"
+            className="bg-flashwhite dark:bg-onyx rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border scrollbar-thin scrollbar-thumb-slate-400 border-slategray dark:border-onyx dark:scrollbar-thumb-slate-700 scrollbar-track-transparent"
             style={{
               scrollbarWidth: 'thin',
               scrollbarColor: 'rgb(148 163 184) transparent'

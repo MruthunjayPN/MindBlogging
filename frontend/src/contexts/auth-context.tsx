@@ -50,11 +50,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         title: "Success",
         description: "Logged in successfully",
       });
-    } catch (error) {
-      const errorMessage = error instanceof Error 
-        ? error.message 
-        : "Failed to login";
-      
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || error.message || "Failed to login";
       toast({
         title: "Error",
         description: errorMessage,
@@ -77,11 +74,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         title: "Success",
         description: "Account created successfully",
       });
-    } catch (error) {
-      const errorMessage = error instanceof Error 
-        ? error.message 
-        : "Failed to register";
-      
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || error.message || "Failed to register";
       toast({
         title: "Error",
         description: errorMessage,

@@ -4,7 +4,7 @@ import { Link, useRouter } from '@tanstack/react-router';
 import { useAuth } from '@/contexts/auth-context';
 import { useTheme } from '@/contexts/theme-context';
 import { Button } from './button';
-import { Sun, Moon } from 'lucide-react';
+import { Sun, Moon, Brain } from 'lucide-react';
 
 const transition = {
   type: "spring",
@@ -15,22 +15,11 @@ const transition = {
   restSpeed: 0.001,
 };
 
-export const Logo = () => {
-  return (
-    <Link to="/" className="text-2xl font-bold">
-      <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">
-        MindBlogging
-      </span>
-    </Link>
-  );
-};
-
 export const MenuItem = ({
   setActive,
   active,
   item,
   children,
-  isLastItem,
 }: {
   setActive: (item: string) => void;
   active: string | null;
@@ -42,13 +31,15 @@ export const MenuItem = ({
     <div onMouseEnter={() => setActive(item)} className="relative">
       <motion.p
         transition={transition}
-        className="cursor-pointer text-sm text-eerie-black dark:text-seasalt/90 hover:text-eerie-black/80 dark:hover:text-seasalt"
+        className="cursor-pointer text-sm text-eerie-black dark:text-seasalt hover:text-eerie-black/80 dark:hover:text-seasalt/80"
       >
         {item}
       </motion.p>
       {active === item && (
-        <div className={`absolute ${isLastItem ? 'right-0' : 'left-1/2 -translate-x-1/2'} top-full pt-2`}>
-          <div className="bg-platinum dark:bg-eerie-black border border-french-gray-200 dark:border-onyx rounded-lg shadow-lg overflow-hidden min-w-[200px]">
+        <div 
+          className="absolute left-1/2 -translate-x-1/2 top-full pt-2 min-w-[200px] z-50"
+        >
+          <div className="bg-platinum dark:bg-onyx border border-french-gray-200 dark:border-onyx rounded-lg shadow-lg overflow-hidden">
             <div className="p-2">
               {children}
             </div>
@@ -70,14 +61,13 @@ export const Menu = ({
   const router = useRouter();
   const currentPath = router.state.location.pathname;
   
-  // Check if we're on auth pages
   const isAuthPage = ['/login', '/register'].includes(currentPath);
 
   return (
     <nav
       onMouseLeave={() => setActive(null)}
       className="relative rounded-full border border-transparent 
-        bg-french-gray/50 dark:bg-french-gray/50
+        bg-platinum/80 dark:bg-onyx/80
         shadow-input dark:shadow-none
         backdrop-blur-sm
         dark:border-onyx/50
@@ -85,10 +75,26 @@ export const Menu = ({
         flex items-center justify-between"
     >
       <div className="flex-none">
-        <Logo />
+        <div className="flex items-center gap-4">
+          <div className="relative w-12 h-12">
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white via-zinc-300 to-zinc-600 animate-pulse" />
+            <div className="absolute inset-1 rounded-full bg-black" />
+            <Brain className="absolute inset-0 w-full h-full p-2.5 text-white" />
+          </div>
+          <h1 className="text-3xl font-bold tracking-tighter">
+            <span className="bg-gradient-to-r from-eblack via-space to-slategray bg-clip-text text-transparent dark:bg-gradient-to-r dark:from-white dark:via-zinc-300 dark:to-zinc-500">
+              Mind
+            </span>
+            <span className="bg-gradient-to-r from-slategray via-space to-eblack bg-clip-text text-transparent dark:bg-gradient-to-r dark:from-zinc-500 dark:via-zinc-300 dark:to-white">
+              Blogging
+            </span>
+          </h1>
+        </div>
       </div>
       <div className="flex items-center gap-8">
-        {(!isAuthPage || user) && children}
+        <div className="flex items-center gap-6"> {/* Increased gap between menu items */}
+          {(!isAuthPage || user) && children}
+        </div>
         <ThemeSwitcher />
       </div>
     </nav>
@@ -132,7 +138,7 @@ export const HoveredLink = ({ to, children }: { to: string, children: React.Reac
     <Link
       to={to}
       className="block px-4 py-2 text-sm text-eerie-black dark:text-seasalt/90 
-        hover:bg-platinum-400 dark:hover:bg-onyx 
+        hover:bg-platinum-400 dark:hover:bg-onyx/50 
         rounded-md transition-colors duration-150"
     >
       {children}
