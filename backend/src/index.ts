@@ -15,9 +15,11 @@ const app = express();
 // CORS configuration
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://mindblogging.vercel.app/']
-    : ['http://localhost:5173'],
+    ? 'https://mindblogging.vercel.app'  // Remove array brackets and trailing slash
+    : 'http://localhost:5173',
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Add explicit methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Add allowed headers
 }));
 app.use(express.json());
 
