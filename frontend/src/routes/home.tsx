@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { blogApi } from '@/lib/api';
+import { blogApi } from '@/lib/api/blog';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Skeleton } from "@/components/ui/skeleton";
 import { HoverEffect } from "@/components/ui/card-hover-effect";

@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useParams, useNavigate } from '@tanstack/react-router';
 import { useAuth } from '@/contexts/auth-context';
-import { blogApi } from '@/lib/api';
+import { blogApi } from '@/lib/api/blog';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';

@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useContext } from 'react';
-import { authApi } from '@/lib/api';
+import { authApi } from '@/lib/api/auth';
 import { useToast } from '@/hooks/use-toast';
 import type { User, AuthResponse } from '@/types/api';
 

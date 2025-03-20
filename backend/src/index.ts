@@ -14,10 +14,9 @@ const app = express();
 
 // CORS configuration
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'https://your-frontend-domain.vercel.app'
-  ],
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://your-frontend-domain.vercel.app']
+    : ['http://localhost:5173'],
   credentials: true,
 }));
 app.use(express.json());

@@ -3,7 +3,7 @@ import { useNavigate } from '@tanstack/react-router';
 import { useForm, ControllerRenderProps } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { blogApi } from '@/lib/api';
+import { blogApi } from '@/lib/api/blog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';

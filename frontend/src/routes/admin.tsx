@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { adminApi } from '@/lib/api';
+import { adminApi } from '@/lib/api/admin';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { ProtectedRoute } from '@/components/protected-route';

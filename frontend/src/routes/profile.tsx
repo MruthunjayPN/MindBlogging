@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link, useNavigate } from '@tanstack/react-router';
-import { userApi, blogApi } from '@/lib/api';
+import { userApi } from '@/lib/api/user';
+import { blogApi } from '@/lib/api/blog';
 import { useAuth } from '@/hooks/use-auth';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from '@/components/ui/card';
 import { ProtectedRoute } from '@/components/protected-route';

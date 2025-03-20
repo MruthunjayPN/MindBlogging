@@ -1,5 +1,4 @@
-import { Component, ReactNode } from 'react';
-import { Button } from './ui/button';
+import { Component, ErrorInfo, ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -7,7 +6,6 @@ interface Props {
 
 interface State {
   hasError: boolean;
-  error?: Error;
 }
 
 export class ErrorBoundary extends Component<Props, State> {
@@ -15,21 +13,19 @@ export class ErrorBoundary extends Component<Props, State> {
     hasError: false
   };
 
-  public static getDerivedStateFromError(error: Error): State {
-    return { hasError: true, error };
+  public static getDerivedStateFromError(): State {
+    return { hasError: true };
+  }
+
+  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error('Uncaught error:', error, errorInfo);
   }
 
   public render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center space-y-4">
-            <h2 className="text-2xl font-bold">Something went wrong</h2>
-            <p className="text-muted-foreground">{this.state.error?.message}</p>
-            <Button onClick={() => window.location.reload()}>
-              Try again
-            </Button>
-          </div>
+        <div className="flex min-h-screen items-center justify-center">
+          <h1>Sorry.. there was an error</h1>
         </div>
       );
     }
