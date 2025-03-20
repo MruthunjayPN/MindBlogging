@@ -7,48 +7,7 @@ import { authenticate, AuthRequest } from '../middleware/auth.middleware';
 
 const router = express.Router();
 
-router.post('/signup', async (req, res: Response) => {
-  try {
-    const validatedData = userAuthSchema.signup.parse(req.body);
-    const { email, password, name } = validatedData;
-
-    const existingUser = await prisma.user.findUnique({ where: { email } });
-    if (existingUser) {
-      return res.status(400).json({ message: 'User already exists' });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await prisma.user.create({
-      data: {
-        email,
-        password: hashedPassword,
-        name
-      },
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        role: true,
-        createdAt: true
-      }
-    });
-
-    const token = jwt.sign(
-      { userId: user.id, role: user.role },
-      process.env.JWT_SECRET || 'secret',
-      { expiresIn: '1d' }
-    );
-
-    return res.json({ token, user });
-  } catch (error) {
-    if (error.errors) {
-      return res.status(400).json({ errors: error.errors });
-    }
-    return res.status(400).json({ message: error.message || 'Invalid input' });
-  }
-});
-
-router.post('/signin', async (req, res) => {
+router.post('/login', async (req, res: Response) => {
   try {
     const validatedData = userAuthSchema.signin.parse(req.body);
     const { email, password } = validatedData;
@@ -82,6 +41,47 @@ router.post('/signin', async (req, res) => {
     );
 
     return res.json({ token, user: userWithoutPassword });
+  } catch (error) {
+    if (error.errors) {
+      return res.status(400).json({ errors: error.errors });
+    }
+    return res.status(400).json({ message: error.message || 'Invalid input' });
+  }
+});
+
+router.post('/register', async (req, res: Response) => {
+  try {
+    const validatedData = userAuthSchema.signup.parse(req.body);
+    const { email, password, name } = validatedData;
+
+    const existingUser = await prisma.user.findUnique({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await prisma.user.create({
+      data: {
+        email,
+        password: hashedPassword,
+        name
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        createdAt: true
+      }
+    });
+
+    const token = jwt.sign(
+      { userId: user.id, role: user.role },
+      process.env.JWT_SECRET || 'secret',
+      { expiresIn: '1d' }
+    );
+
+    return res.json({ token, user });
   } catch (error) {
     if (error.errors) {
       return res.status(400).json({ errors: error.errors });

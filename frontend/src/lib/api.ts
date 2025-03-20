@@ -14,6 +14,8 @@ api.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+  // Ensure CORS headers are respected
+  config.headers['Access-Control-Allow-Origin'] = 'https://mindblogging.vercel.app';
   return config;
 });
 
