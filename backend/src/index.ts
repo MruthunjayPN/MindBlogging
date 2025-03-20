@@ -15,7 +15,7 @@ const app = express();
 // CORS configuration
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-frontend-domain.vercel.app']
+    ? ['https://mindblogging.vercel.app/']
     : ['http://localhost:5173'],
   credentials: true,
 }));
