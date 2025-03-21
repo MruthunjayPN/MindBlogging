@@ -1,4 +1,4 @@
-import api from '../api';
+import { api } from '../api';
 
 export const authApi = {
   signin: (data: { email: string; password: string }) => 
