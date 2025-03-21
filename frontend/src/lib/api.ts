@@ -1,33 +1,31 @@
 import axios from 'axios';
+import type { AuthResponse, User, Post, ProfileResponse } from '@/types/api';
+
+const baseURL = import.meta.env.PROD 
+  ? 'https://mindblogging-api.vercel.app/api'
+  : 'http://localhost:3000/api';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
+  baseURL,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   }
 });
 
-// Add authorization header if token exists
+// Request interceptor for adding auth token
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
-  // Ensure CORS headers are respected
-  config.headers['Access-Control-Allow-Origin'] = 'https://mindblogging.vercel.app';
   return config;
 });
 
-// Add error handling for production
+// Response interceptor for handling errors
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (!error.response) {
-      // Network error
-      console.error('Network error detected');
-      // Handle offline state
-    }
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       window.location.href = '/login';
@@ -36,4 +34,16 @@ api.interceptors.response.use(
   }
 );
 
-export default api; 
+export const authApi = {
+  signup: (data: { email: string; password: string; name: string }) =>
+    api.post<AuthResponse>('/auth/signup', data),
+  
+  signin: (data: { email: string; password: string }) =>
+    api.post<AuthResponse>('/auth/signin', data),
+  
+  verifyToken: () => 
+    api.get<{ user: User }>('/auth/verify'),
+  
+  logout: () => 
+    api.post('/auth/logout'),
+}; 
