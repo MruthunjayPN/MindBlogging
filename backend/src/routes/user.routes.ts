@@ -23,6 +23,20 @@ router.get('/profilePosts', authenticate, async (req, res) => {
         posts: {
           orderBy: {
             createdAt: 'desc'
+          },
+          select: {
+            id: true,
+            title: true,
+            content: true,
+            published: true,
+            createdAt: true,
+            authorId: true,
+            author: {
+              select: {
+                id: true,
+                name: true
+              }
+            }
           }
         }
       }
@@ -34,6 +48,7 @@ router.get('/profilePosts', authenticate, async (req, res) => {
 
     return res.json(userWithPosts);
   } catch (error) {
+    console.error('Error fetching profile:', error);
     return res.status(500).json({ message: 'Error fetching profile' });
   }
 });
