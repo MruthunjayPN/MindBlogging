@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from '@tanstack/react-router';
-import { useForm } from 'react-hook-form';
+import { useForm, type ControllerRenderProps } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { blogApi } from '@/lib/api/blog';
@@ -118,7 +118,7 @@ export default function EditPostPage() {
 
   return (
     <ProtectedRoute>
-      <div className="max-w-3xl mx-auto p-4">
+      <div className="container max-w-2xl py-10">
         <Card>
           <CardHeader>
             <CardTitle>Edit Post</CardTitle>
@@ -129,11 +129,11 @@ export default function EditPostPage() {
                 <FormField
                   control={form.control}
                   name="title"
-                  render={({ field }: { field: ControllerRenderProps<FormData, "title"> }) => (
+                  render={({ field }: { field: ControllerRenderProps<FormData, 'title'> }) => (
                     <FormItem>
                       <FormLabel>Title</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter post title" {...field} />
+                        <Input {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -142,15 +142,11 @@ export default function EditPostPage() {
                 <FormField
                   control={form.control}
                   name="content"
-                  render={({ field }: { field: ControllerRenderProps<FormData, "content"> }) => (
+                  render={({ field }: { field: ControllerRenderProps<FormData, 'content'> }) => (
                     <FormItem>
                       <FormLabel>Content</FormLabel>
                       <FormControl>
-                        <Textarea 
-                          placeholder="Write your post content here" 
-                          className="min-h-[300px]" 
-                          {...field} 
-                        />
+                        <Textarea {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

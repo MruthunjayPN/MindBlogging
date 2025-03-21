@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
-import { useForm } from 'react-hook-form';
+import { useForm, type ControllerRenderProps } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { blogApi } from '@/lib/api/blog';
@@ -89,11 +89,11 @@ export default function CreatePostPage() {
                 <FormField
                   control={form.control}
                   name="title"
-                  render={({ field }: { field: ControllerRenderProps<FormData, "title"> }) => (
+                  render={({ field }: { field: ControllerRenderProps<FormData, 'title'> }) => (
                     <FormItem>
                       <FormLabel>Title</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter post title" className="text-lg" {...field} />
+                        <Input {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -102,15 +102,11 @@ export default function CreatePostPage() {
                 <FormField
                   control={form.control}
                   name="content"
-                  render={({ field }: { field: ControllerRenderProps<FormData, "content"> }) => (
+                  render={({ field }: { field: ControllerRenderProps<FormData, 'content'> }) => (
                     <FormItem>
                       <FormLabel>Content</FormLabel>
                       <FormControl>
-                        <Textarea 
-                          placeholder="Write your post content here" 
-                          className="min-h-[300px] bg-french " 
-                          {...field} 
-                        />
+                        <Textarea {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
