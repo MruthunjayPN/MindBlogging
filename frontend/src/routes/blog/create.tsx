@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
-import { useForm, ControllerRenderProps } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { blogApi } from '@/lib/api/blog';
@@ -23,7 +23,7 @@ import {
 } from '@/components/ui/card';
 import { ProtectedRoute } from '@/components/protected-route';
 import { useToast } from '@/hooks/use-toast';
-import { blogSchema } from '@/validations/blog.schema';
+// Remove unused import: blogSchema
 
 type FormData = {
   title: string;
