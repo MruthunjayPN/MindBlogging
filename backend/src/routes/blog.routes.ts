@@ -1,7 +1,7 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
 import { authenticate } from '../middleware/auth.middleware';
-import { blogSchema } from '../../../common/validations/blog.schema';
+import { blogSchema } from '../validations/blog.schema';
 import { handleZodError } from '../utils/error-handler';
 
 const router = express.Router();

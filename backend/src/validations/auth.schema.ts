@@ -13,4 +13,4 @@ export const userAuthSchema = {
 };
 
 export type SignupInput = z.infer<typeof userAuthSchema.signup>;
-export type SigninInput = z.infer<typeof userAuthSchema.signin>; 
+export type SigninInput = z.infer<typeof userAuthSchema.signin>;

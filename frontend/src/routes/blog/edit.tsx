@@ -25,6 +25,7 @@ import {
 import { ProtectedRoute } from '@/components/protected-route';
 import { useToast } from '@/hooks/use-toast';
 import { Spinner } from '@/components/ui/spinner';
+import { blogSchema } from '@/validations/blog.schema';
 
 type FormData = {
   title: string;

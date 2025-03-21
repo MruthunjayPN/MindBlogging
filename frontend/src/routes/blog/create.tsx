@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/card';
 import { ProtectedRoute } from '@/components/protected-route';
 import { useToast } from '@/hooks/use-toast';
+import { blogSchema } from '@/validations/blog.schema';
 
 type FormData = {
   title: string;
