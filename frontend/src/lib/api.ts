@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { AuthResponse, User } from '@/types/api';
 
 const baseURL = import.meta.env.PROD 
-  ? 'https://mindblogging-api.vercel.app/api'
+  ? 'https://mindblogging-api.vercel.app/api'  // Note the /api prefix
   : 'http://localhost:3000/api';
 
 export const api = axios.create({
