@@ -14,19 +14,27 @@ export const api = axios.create({
   }
 });
 
-// Request interceptor for adding auth token
+// Enhanced request interceptor
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+  // Ensure CORS credentials are always included
+  config.withCredentials = true;
   return config;
 });
 
-// Response interceptor for handling errors
+// Enhanced response interceptor with better error handling
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.error('API Error:', {
+      status: error.response?.status,
+      data: error.response?.data,
+      headers: error.response?.headers
+    });
+    
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       window.location.href = '/login';
