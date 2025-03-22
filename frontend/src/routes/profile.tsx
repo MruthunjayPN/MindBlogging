@@ -9,7 +9,7 @@ import { ProtectedRoute } from '@/components/protected-route';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Post } from '@/types/post';
+import { Post, User } from '@/types/api';
 import { motion } from 'framer-motion';
 import { ShinyButton } from '@/components/magicui/shiny-button';
 import { useToast } from '@/hooks/use-toast';
@@ -72,9 +72,9 @@ export default function ProfilePage() {
   const updateProfileMutation = useMutation({
     mutationFn: async (data: { name: string; password?: string }) => {
       const response = await userApi.updateProfile(data);
-      return response.data;
+      return response.data;  // This will be of type User
     },
-    onSuccess: (updatedUser) => {
+    onSuccess: (updatedUser: User) => {  // Explicitly type as User
       updateUser(updatedUser);
       queryClient.invalidateQueries({ queryKey: ['profile'] });
       queryClient.invalidateQueries({ queryKey: ['auth'] });
