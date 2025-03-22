@@ -25,3 +25,8 @@ export interface ProfileResponse {
   user: User;
   posts: Post[];
 }
+
+export interface AuthResponse {
+  user: User;
+  token: string;
+}
