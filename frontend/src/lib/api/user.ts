@@ -1,5 +1,5 @@
 import { api } from '../api';
-import type { ProfileResponse } from '@/types/api';
+import type { ProfileResponse, User } from '@/types/api';
 
 interface UpdateProfileInput {
   name?: string;
@@ -11,5 +11,5 @@ export const userApi = {
     api.get<ProfileResponse>('/user/profilePosts'),
     
   updateProfile: (data: UpdateProfileInput) => 
-    api.put<ProfileResponse>('/user/profile', data),
+    api.put<User>('/user/profile', data),
 };

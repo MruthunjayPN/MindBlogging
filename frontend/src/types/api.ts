@@ -21,17 +21,7 @@ export interface Post {
   };
 }
 
-export interface AuthResponse {
-  token: string;
-  user: User;
-}
-
 export interface ProfileResponse {
   user: User;
   posts: Post[];
 }
-
-export interface ApiError {
-  message: string;
-  status: number;
-} 
