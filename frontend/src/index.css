@@ -146,9 +146,56 @@
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
+  
+  html {
+    @apply antialiased;
   }
+  
+  body {
+    @apply bg-background text-foreground min-h-screen;
+  }
+  
+  /* Responsive text sizes */
+  h1 {
+    @apply text-2xl md:text-3xl lg:text-4xl font-bold;
+  }
+  
+  h2 {
+    @apply text-xl md:text-2xl lg:text-3xl font-semibold;
+  }
+  
+  h3 {
+    @apply text-lg md:text-xl lg:text-2xl font-semibold;
+  }
+  
+  p {
+    @apply text-sm md:text-base;
+  }
+}
+
+/* Responsive container padding */
+.container {
+  @apply px-4 md:px-6 lg:px-8;
+}
+
+/* Responsive card styles */
+.card {
+  @apply p-4 md:p-6;
+}
+
+/* Responsive grid layouts */
+.grid-cols-responsive {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6;
+}
+
+/* Responsive form elements */
+.form-input {
+  @apply w-full p-2 md:p-3;
+}
+
+/* Responsive buttons */
+.btn {
+  @apply px-4 py-2 md:px-6 md:py-3;
 }
 
 /* Keep your existing theme inline variables */

@@ -16,8 +16,8 @@ export default function Root() {
   return (
     <div className="min-h-screen bg-flashwhite dark:bg-night transition-colors duration-200">
       {!hideNavbar && (
-        <header className="fixed top-0 left-0 right-0 px-4 py-4 z-50">
-          <div className="container mx-auto">
+        <header className="fixed top-0 left-0 right-0 z-50">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <Menu setActive={setActive}>
               {user ? (
                 <>
@@ -26,9 +26,13 @@ export default function Root() {
                     active={active} 
                     item="Create"
                   >
-                    <div className="flex flex-col space-y-4">
-                      <HoveredLink to="/post/create">New Post</HoveredLink>
-                      <HoveredLink to="/drafts">My Drafts</HoveredLink>
+                    <div className="flex flex-col space-y-3 sm:space-y-4">
+                      <HoveredLink to="/post/create" className="text-sm sm:text-base">
+                        New Post
+                      </HoveredLink>
+                      <HoveredLink to="/drafts" className="text-sm sm:text-base">
+                        My Drafts
+                      </HoveredLink>
                     </div>
                   </MenuItem>
                   
@@ -38,15 +42,21 @@ export default function Root() {
                     item="Profile" 
                     isLastItem={false}
                   >
-                    <div className="flex flex-col space-y-4">
-                      <HoveredLink to="/profile">My Profile</HoveredLink>
-                      <HoveredLink to="/settings">Settings</HoveredLink>
+                    <div className="flex flex-col space-y-3 sm:space-y-4">
+                      <HoveredLink to="/profile" className="text-sm sm:text-base">
+                        My Profile
+                      </HoveredLink>
+                      <HoveredLink to="/settings" className="text-sm sm:text-base">
+                        Settings
+                      </HoveredLink>
                       {user.role === 'ADMIN' && (
-                        <HoveredLink to="/admin">Admin Dashboard</HoveredLink>
+                        <HoveredLink to="/admin" className="text-sm sm:text-base">
+                          Admin Dashboard
+                        </HoveredLink>
                       )}
                       <ShinyButton 
                         onClick={logout}
-                        className="w-full bg-eblack text-seasalt hover:bg-eblack/90 dark:bg-platinum dark:text-night dark:hover:bg-platinum/90"
+                        className="w-full text-sm sm:text-base bg-eblack text-seasalt hover:bg-eblack/90 dark:bg-platinum dark:text-night dark:hover:bg-platinum/90"
                       >
                         Logout
                       </ShinyButton>
@@ -59,7 +69,19 @@ export default function Root() {
         </header>
       )}
 
-      <main className={`${hideNavbar ? '' : 'pt-28 container mx-auto px-4 py-8'} text-eblack dark:text-seasalt`}>
+      <main className={`
+        ${hideNavbar ? '' : 'pt-16 sm:pt-20 lg:pt-24'} 
+        container 
+        mx-auto 
+        px-4 
+        sm:px-6 
+        lg:px-8 
+        py-4 
+        sm:py-6 
+        lg:py-8 
+        text-eblack 
+        dark:text-seasalt
+      `}>
         <Outlet />
       </main>
     </div>
